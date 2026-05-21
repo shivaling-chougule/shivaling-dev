@@ -9,7 +9,7 @@ const PUB_SUB_EVENTS = {
 
 function fetchConfig(type = 'json', method = 'POST') {
   return {
-    method: 'POST',
+    method,
     headers: { 'Content-Type': 'application/json', 'Accept': `application/${type}` }
   };
 }

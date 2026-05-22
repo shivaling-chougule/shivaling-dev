@@ -6,3 +6,10 @@ const PUB_SUB_EVENTS = {
   variantChange: 'variant-change',
   cartError: 'cart-error'
 };
+
+function fetchConfig(type = 'json', method = 'POST') {
+  return {
+    method,
+    headers: { 'Content-Type': 'application/json', 'Accept': `application/${type}` }
+  };
+}

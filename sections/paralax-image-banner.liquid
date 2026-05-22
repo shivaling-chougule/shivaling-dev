@@ -1,0 +1,468 @@
+{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #Banner-{{ section.id }}::after {
+    opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};
+  }
+
+  #Banner-{{ section.id }} {
+    overflow: hidden;
+    position: relative;
+  }
+
+  #Banner-{{ section.id }} .banner__media {
+    position: absolute;
+    inset: 0;
+    top: 0;
+    will-change: transform;
+  }
+
+  #Banner-{{ section.id }} .banner__media img {
+    width: 100%;
+    height: 140%;
+    object-fit: cover !important;
+    display: block;
+  }
+
+  #Banner-{{ section.id }}.banner--small:not(.banner--adapt) {
+    min-height: calc(42rem - 20px);
+  }
+  #Banner-{{ section.id }}.banner--medium:not(.banner--adapt) {
+    min-height: calc(56rem - 20px);
+  }
+  #Banner-{{ section.id }}.banner--large:not(.banner--adapt) {
+    min-height: calc(72rem - 20px);
+  }
+
+  @media screen and (max-width: 749px) {
+    #Banner-{{ section.id }}.banner--small:not(.banner--mobile-bottom):not(.banner--adapt) .banner__content {
+      min-height: calc(28rem - 20px);
+    }
+    #Banner-{{ section.id }}.banner--medium:not(.banner--mobile-bottom):not(.banner--adapt) .banner__content {
+      min-height: calc(34rem - 20px);
+    }
+    #Banner-{{ section.id }}.banner--large:not(.banner--mobile-bottom):not(.banner--adapt) .banner__content {
+      min-height: calc(39rem - 20px);
+    }
+  }
+
+  #Banner-{{ section.id }} .banner__box {
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+  .typewriter .typewriter-word {
+    display: inline-block;
+    overflow: hidden;
+    border-right: .15em solid blue;
+    white-space: nowrap;
+    width: 0;
+    vertical-align: bottom;
+    animation: blink-caret .75s step-end infinite;
+  }
+
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: blue }
+  }
+{%- endstyle -%}
+
+<div
+  id="Banner-{{ section.id }}"
+  class="banner banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}"
+  data-parallax-speed="{{ section.settings.parallax_speed | divided_by: 10.0 }}"
+>
+  {%- if section.settings.image != blank -%}
+    <div class="banner__media media">
+      {%- liquid
+        assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
+        assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+      -%}
+      {{
+        section.settings.image
+        | image_url: width: 3840
+        | image_tag:
+          loading: 'lazy',
+          width: section.settings.image.width,
+          height: image_height,
+          sizes: '100vw',
+          widths: widths
+      }}
+    </div>
+  {%- else -%}
+    <div class="banner__media media placeholder">
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  {%- endif -%}
+
+  <div class="banner__content banner__content--{{ section.settings.desktop_content_position }} page-width">
+    <div class="banner__box content-container content-container--full-width-mobile color-{{ section.settings.color_scheme }} gradient">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'heading' -%}
+            <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }} typewriter" {{ block.shopify_attributes }}>
+              <span class="typewriter-word" data-words='{{ block.settings.typewriter_word_1 | json }},{{ block.settings.typewriter_word_2 | json }}'></span>
+              {{ block.settings.heading }}
+            </h2>
+          {%- when 'text' -%}
+            <div class="banner__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
+              <p>{{ block.settings.text }}</p>
+            </div>
+          {%- when 'buttons' -%}
+            <div
+              class="banner__buttons{% if block.settings.button_label_1 != blank and block.settings.button_label_2 != blank %} banner__buttons--multiple{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.button_label_1 != blank -%}
+                <a
+                  {% if block.settings.button_link_1 == blank %}
+                    role="link" aria-disabled="true"
+                  {% else %}
+                    href="{{ block.settings.button_link_1 }}"
+                  {% endif %}
+                  class="button {{ block.settings.button_style_1 }}"
+                >
+                  {{- block.settings.button_label_1 | escape -}}
+                </a>
+              {%- endif -%}
+              {%- if block.settings.button_label_2 != blank -%}
+                <a
+                  {% if block.settings.button_link_2 == blank %}
+                    role="link" aria-disabled="true"
+                  {% else %}
+                    href="{{ block.settings.button_link_2 }}"
+                  {% endif %}
+                  class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
+                >
+                  {{- block.settings.button_label_2 | escape -}}
+                </a>
+              {%- endif -%}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var banner = document.getElementById('Banner-{{ section.id }}');
+    if (!banner) return;
+
+    var speed = parseFloat(banner.dataset.parallaxSpeed) || 0.5;
+    var media = banner.querySelector('.banner__media');
+    if (!media) return;
+
+    var ticking = false;
+
+    function updateParallax() {
+      var rect = banner.getBoundingClientRect();
+      var windowHeight = window.innerHeight;
+
+      if (rect.bottom < 0 || rect.top > windowHeight) {
+        ticking = false;
+        return;
+      }
+
+      var scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+      var offset = (scrollProgress - 0.5) * speed * 150;
+      media.style.transform = 'translateY(' + offset + 'px)';
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateParallax();
+
+    // Typewriter: loop between word 1 and word 2
+    var span = banner.querySelector('.typewriter-word');
+    if (span) {
+      var rawWords = span.getAttribute('data-words');
+      var words = rawWords ? rawWords.split(',').map(function (w) { return w.replace(/^"|"$/g, ''); }) : [];
+      words = words.filter(function (w) { return w.trim().length > 0; });
+      if (words.length === 0) { span.style.display = 'none'; }
+      if (words.length > 0) {
+        var wordIndex = 0;
+        var charIndex = 0;
+        var isDeleting = false;
+        var typingSpeed = 100;
+        var deletingSpeed = 60;
+        var pauseAfterType = 1500;
+        var pauseAfterDelete = 400;
+
+        function measureWord(text) {
+          span.textContent = text;
+          span.style.width = 'auto';
+          var w = span.getBoundingClientRect().width;
+          span.style.width = '';
+          return w;
+        }
+
+        function tick() {
+          var currentWord = words[wordIndex];
+
+          if (!isDeleting) {
+            charIndex++;
+            span.textContent = currentWord.substring(0, charIndex);
+            span.style.width = measureWord(currentWord.substring(0, charIndex)) + 'px';
+
+            if (charIndex === currentWord.length) {
+              isDeleting = true;
+              setTimeout(tick, pauseAfterType);
+              return;
+            }
+            setTimeout(tick, typingSpeed);
+          } else {
+            charIndex--;
+            span.textContent = currentWord.substring(0, charIndex);
+            span.style.width = charIndex > 0 ? measureWord(currentWord.substring(0, charIndex)) + 'px' : '0px';
+
+            if (charIndex === 0) {
+              isDeleting = false;
+              wordIndex = (wordIndex + 1) % words.length;
+              setTimeout(tick, pauseAfterDelete);
+              return;
+            }
+            setTimeout(tick, deletingSpeed);
+          }
+        }
+
+        tick();
+      }
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Parallax Image Banner",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "parallax_speed",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 5,
+      "label": "Parallax speed",
+      "info": "0 = no parallax, 10 = maximum effect"
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "medium",
+      "label": "Banner height"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        { "value": "top-left", "label": "Top left" },
+        { "value": "top-center", "label": "Top center" },
+        { "value": "top-right", "label": "Top right" },
+        { "value": "middle-left", "label": "Middle left" },
+        { "value": "middle-center", "label": "Middle center" },
+        { "value": "middle-right", "label": "Middle right" },
+        { "value": "bottom-left", "label": "Bottom left" },
+        { "value": "bottom-center", "label": "Bottom center" },
+        { "value": "bottom-right", "label": "Bottom right" }
+      ],
+      "default": "middle-center",
+      "label": "Content position"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_text_box",
+      "default": true,
+      "label": "Show text box"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center",
+      "label": "Content alignment"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        { "value": "accent-1", "label": "Accent 1" },
+        { "value": "accent-2", "label": "Accent 2" },
+        { "value": "background-1", "label": "Background 1" },
+        { "value": "background-2", "label": "Background 2" },
+        { "value": "inverse", "label": "Inverse" }
+      ],
+      "default": "background-1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center",
+      "label": "Mobile content alignment"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_text_below",
+      "default": true,
+      "label": "Show text below image on mobile"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "typewriter_word_1",
+          "default": "Creative",
+          "label": "Typewriter word 1"
+        },
+        {
+          "type": "text",
+          "id": "typewriter_word_2",
+          "default": "Stunning",
+          "label": "Typewriter word 2"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Image banner",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            { "value": "h2", "label": "Small" },
+            { "value": "h1", "label": "Medium" },
+            { "value": "h0", "label": "Large" }
+          ],
+          "default": "h1",
+          "label": "Heading size"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "default": "Give customers details about the banner image or content on the template.",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            { "value": "body", "label": "Body" },
+            { "value": "subtitle", "label": "Subtitle" },
+            { "value": "caption-with-letter-spacing", "label": "Caption" }
+          ],
+          "default": "body",
+          "label": "Text style"
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "Buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label_1",
+          "default": "Button label",
+          "label": "Button label",
+          "info": "Leave blank to hide"
+        },
+        {
+          "type": "url",
+          "id": "button_link_1",
+          "label": " Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style_1",
+          "options": [
+            { "value": "button--primary", "label": "Primary" },
+            { "value": "button--secondary", "label": "Secondary (Outline)" },
+            { "value": "button--tertiary", "label": "Tertiary (Link)" },
+            { "value": "button--ghost", "label": "Ghost (Underline)" },
+            { "value": "button--glass", "label": "Glass" },
+            { "value": "button--neumorphism", "label": "Neumorphism" },
+            { "value": "button--shadow", "label": "Shadow" },
+            { "value": "button--bounce", "label": "Bounce" }
+
+          ],
+          "default": "button--primary",
+          "label": "Button style"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Parallax Image Banner",
+      "blocks": [
+        { "type": "heading" },
+        { "type": "text" },
+        { "type": "buttons" }
+      ]
+    }
+  ]
+}
+{% endschema %}

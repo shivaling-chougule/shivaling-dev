@@ -107,6 +107,164 @@
   --color-button-text: var(--color-foreground);
 }
 
+.button--ghost {
+  background: transparent;
+  border: none;
+  color: var(--color-foreground);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  padding: 0;
+  min-height: auto;
+  min-width: auto;
+  box-shadow: none;
+}
+
+.button--ghost:hover {
+  text-decoration-thickness: 2px;
+  opacity: 0.8;
+}
+
+.button--glass {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  color: var(--color-foreground);
+
+  padding: 1.2rem 2.4rem;
+  border-radius: 1.2rem;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.button--glass:hover {
+  background: rgba(255, 255, 255, 0.2);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.button--neumorphism {
+  background: #e0e0e0;
+
+  color: #333;
+
+  border: none;
+
+  padding: 1.2rem 2.4rem;
+
+  border-radius: 1rem;
+
+  transition:
+    all 0.2s ease;
+
+  box-shadow:
+    8px 8px 16px #bebebe,
+    -8px -8px 16px #ffffff;
+}
+
+.button--neumorphism:hover {
+  box-shadow:
+    inset 6px 6px 12px #bebebe,
+    inset -6px -6px 12px #ffffff;
+
+  transform: scale(0.98);
+}
+
+.button--shadow {
+  background: #111;
+
+  color: #fff;
+
+  border: none;
+
+  padding: 1.2rem 2.6rem;
+
+  border-radius: 0.8rem;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  box-shadow:
+    0 6px 0 #000,
+    0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.button--shadow:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 10px 0 #000,
+    0 18px 30px rgba(0, 0, 0, 0.25);
+}
+
+.button--shadow:active {
+  transform: translateY(2px);
+
+  box-shadow:
+    0 2px 0 #000,
+    0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.button--bounce {
+  background: #ff4d6d;
+
+  color: white;
+
+  border: none;
+
+  padding: 1.2rem 2.6rem;
+
+  border-radius: 999px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  box-shadow:
+    0 8px 20px rgba(255, 77, 109, 0.35);
+}
+
+.button--bounce:hover {
+  animation: button-bounce 0.6s ease;
+
+  box-shadow:
+    0 12px 24px rgba(255, 77, 109, 0.45);
+}
+
+@keyframes button-bounce {
+  0% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.1);
+  }
+
+  50% {
+    transform: scale(0.95);
+  }
+
+  70% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 :root,
 .color-background-1 {
   --color-badge-background: var(--color-background);

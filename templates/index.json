@@ -65,7 +65,9 @@
         "heading_8NqgGM": {
           "type": "heading",
           "settings": {
-            "heading": "Image banner",
+            "typewriter_word_1": "Ride",
+            "typewriter_word_2": "Own",
+            "heading": "the Mountain",
             "heading_size": "h1"
           }
         },
@@ -81,10 +83,7 @@
           "settings": {
             "button_label_1": "Button label",
             "button_link_1": "",
-            "button_style_secondary_1": false,
-            "button_label_2": "Button label",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "button_style_1": "button--primary"
           }
         }
       },

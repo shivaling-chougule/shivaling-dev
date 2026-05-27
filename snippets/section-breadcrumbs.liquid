@@ -12,67 +12,96 @@
 -%}
 
   <div class="collection-banner__breadcrumb-wrap {{ wrapper_class }}">
-    <nav class="breadcrumb section-breadcrumb-nav" role="navigation" aria-label="breadcrumbs" style="color: {{ breadcrumb_color }}; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+    <nav
+      class="breadcrumb section-breadcrumb-nav"
+      role="navigation"
+      aria-label="breadcrumbs"
+      data-breadcrumb-nav
+      data-template="{{ template.name }}"
+      {%- if template.name == 'collection' and collection %}
+        data-collection-title="{{ collection.title | escape }}"
+        data-collection-url="{{ collection.url }}"
+      {%- endif %}
+      {%- if template.name == 'list-collections' %}
+        data-collection-title="{{ page_title | escape }}"
+        data-collection-url="{{ routes.collections_url }}"
+      {%- endif %}
+      {%- if template.name == 'product' and product %}
+        data-product-title="{{ product.title | escape }}"
+      {%- endif %}
+      data-breadcrumb-color="{{ breadcrumb_color }}"
+      style="color: {{ breadcrumb_color }}; display: flex; align-items: center; flex-wrap: wrap;"
+    >
 
       <a href="{{ routes.root_url }}" title="{{ 'general.breadcrumbs.home' | t }}" class="breadcrumb__link" style="color: {{ breadcrumb_color }};">
         {{ 'general.breadcrumbs.home' | t }}
       </a>
 
-      {%- if template.name == 'collection' and collection -%}
-        
-        {%- comment -%}
-          Main Collection Title
-        {%- endcomment -%}
-        <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
-        <a href="{{ collection.url }}" class="breadcrumb__link" style="color: {{ breadcrumb_color }};">
-          {{ collection.title | escape }}
-        </a>
+      {%- comment -%} JS populates this for collection/list-collections/product pages {%- endcomment -%}
+      <span data-breadcrumb-trail></span>
+
+      {%- if template.name == 'list-collections' -%}
+        <span data-breadcrumb-fallback>
+          <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
+          <span style="color: {{ breadcrumb_color }};">
+            {{ page_title | escape }}
+          </span>
+        </span>
+
+      {%- elsif template.name == 'collection' and collection -%}
+        <span data-breadcrumb-fallback>
+          <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
+          <a href="{{ collection.url }}" class="breadcrumb__link" style="color: {{ breadcrumb_color }};">
+            {{ collection.title | escape }}
+          </a>
+        </span>
 
       {%- elsif template.name == 'product' and product -%}
-        
-        {%- if product.collections.size > 0 -%}
-          <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
-          <a href="{{ product.collections[0].url }}" class="breadcrumb__link" style="color: {{ breadcrumb_color }};">
-            {{ product.collections[0].title | escape }}
-          </a>
-        {%- endif -%}
+        <span data-breadcrumb-fallback>
+          {%- if product.collections.size > 0 -%}
+            <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
+            <a href="{{ product.collections[0].url }}" class="breadcrumb__link" style="color: {{ breadcrumb_color }};">
+              {{ product.collections[0].title | escape }}
+            </a>
+          {%- endif -%}
 
-        <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
-        <span class="breadcrumb__current" style="color: #000;">
-          {{ product.title | escape }}
+          <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
+          <span class="breadcrumb__current" style="color: #000;">
+            {{ product.title | escape }}
+          </span>
         </span>
 
       {%- elsif template.name == 'article' and article -%}
-        
+
         {%- if blog -%}
-          <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
+          <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
           <a href="{{ blog.url }}" class="breadcrumb__link" style="color: {{ breadcrumb_color }};">
             {{ blog.title | escape }}
           </a>
         {%- endif -%}
 
-        <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
+        <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
         <span class="breadcrumb__current" style="color: {{ breadcrumb_color }};">
           {{ article.title | escape }}
         </span>
 
       {%- elsif template.name == 'blog' and blog -%}
-        
-        <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
+
+        <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
         <span style="color: {{ breadcrumb_color }};">
           {{ blog.title | escape }}
         </span>
 
       {%- elsif template.name == 'page' and page -%}
-        
-        <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
+
+        <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
         <span style="color: {{ breadcrumb_color }};">
           {{ page.title | escape }}
         </span>
 
       {%- elsif page_title != blank and request.page_type != 'index' -%}
-        
-        <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
+
+        <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
         <span style="color: {{ breadcrumb_color }};">
           {{ page_title | escape }}
         </span>

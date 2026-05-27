@@ -39,8 +39,11 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 0e882c6 (breadcrumbs Enhanced)
+=======
+>>>>>>> d4856bc (implemented breadcrumbs)
       {%- comment -%} JS populates this for collection/list-collections/product pages {%- endcomment -%}
       <span data-breadcrumb-trail></span>
 
@@ -90,6 +93,7 @@
         <a href="{{ collection.url }}" class="breadcrumb__link" style="color: {{ breadcrumb_color }};">
           {{ collection.title | escape }}
         </a>
+<<<<<<< HEAD
 =======
 >>>>>>> 0e882c6 (breadcrumbs Enhanced)
 
@@ -117,6 +121,28 @@
 =======
           <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
 >>>>>>> 0e882c6 (breadcrumbs Enhanced)
+=======
+
+      {%- elsif template.name == 'product' and product -%}
+        
+        {%- if product.collections.size > 0 -%}
+          <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
+          <a href="{{ product.collections[0].url }}" class="breadcrumb__link" style="color: {{ breadcrumb_color }};">
+            {{ product.collections[0].title | escape }}
+          </a>
+        {%- endif -%}
+
+        <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
+        <span class="breadcrumb__current" style="color: #000;">
+          {{ product.title | escape }}
+        </span>
+
+      {%- elsif template.name == 'article' and article -%}
+        
+        {%- if blog -%}
+          <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
+>>>>>>> 5bdc6aa (implemented breadcrumbs)
+>>>>>>> d4856bc (implemented breadcrumbs)
           <a href="{{ blog.url }}" class="breadcrumb__link" style="color: {{ breadcrumb_color }};">
             {{ blog.title | escape }}
           </a>
@@ -124,13 +150,19 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d4856bc (implemented breadcrumbs)
         <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
 =======
         <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
 >>>>>>> 5bdc6aa (implemented breadcrumbs)
+<<<<<<< HEAD
 =======
         <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
 >>>>>>> 0e882c6 (breadcrumbs Enhanced)
+=======
+>>>>>>> d4856bc (implemented breadcrumbs)
         <span class="breadcrumb__current" style="color: {{ breadcrumb_color }};">
           {{ article.title | escape }}
         </span>
@@ -138,16 +170,22 @@
       {%- elsif template.name == 'blog' and blog -%}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d4856bc (implemented breadcrumbs)
 
         <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
 =======
         
         <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
 >>>>>>> 5bdc6aa (implemented breadcrumbs)
+<<<<<<< HEAD
 =======
 
         <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
 >>>>>>> 0e882c6 (breadcrumbs Enhanced)
+=======
+>>>>>>> d4856bc (implemented breadcrumbs)
         <span style="color: {{ breadcrumb_color }};">
           {{ blog.title | escape }}
         </span>
@@ -155,16 +193,22 @@
       {%- elsif template.name == 'page' and page -%}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d4856bc (implemented breadcrumbs)
 
         <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
 =======
         
         <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
 >>>>>>> 5bdc6aa (implemented breadcrumbs)
+<<<<<<< HEAD
 =======
 
         <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
 >>>>>>> 0e882c6 (breadcrumbs Enhanced)
+=======
+>>>>>>> d4856bc (implemented breadcrumbs)
         <span style="color: {{ breadcrumb_color }};">
           {{ page.title | escape }}
         </span>
@@ -172,16 +216,22 @@
       {%- elsif page_title != blank and request.page_type != 'index' -%}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d4856bc (implemented breadcrumbs)
 
         <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
 =======
         
         <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important;">/</span>
 >>>>>>> 5bdc6aa (implemented breadcrumbs)
+<<<<<<< HEAD
 =======
 
         <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
 >>>>>>> 0e882c6 (breadcrumbs Enhanced)
+=======
+>>>>>>> d4856bc (implemented breadcrumbs)
         <span style="color: {{ breadcrumb_color }};">
           {{ page_title | escape }}
         </span>

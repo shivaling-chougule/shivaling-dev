@@ -44,7 +44,7 @@
 .card--standard .card__inner {
   position: relative;
   box-sizing: border-box;
-  border-radius: var(--border-radius);
+  border-radius: 1rem;
   border: var(--border-width) solid rgba(var(--color-foreground), var(--border-opacity));
 }
 
@@ -57,7 +57,7 @@
   height: calc(var(--border-width) * 2 + 100%);
   top: calc(var(--border-width) * -1);
   left: calc(var(--border-width) * -1);
-  border-radius: var(--border-radius);
+  border-radius: 1rem;
   box-shadow: var(--shadow-horizontal-offset) var(--shadow-vertical-offset) var(--shadow-blur-radius) rgba(var(--color-shadow), var(--shadow-opacity));
 }
 
@@ -65,7 +65,7 @@
   overflow: hidden;
   /* Fix for Safari border bug on hover */
   z-index: 0;
-  border-radius: calc(var(--border-radius) - var(--border-width) - var(--image-padding));
+  border-radius: calc(1rem - var(--border-width) - var(--image-padding));
 }
 
 .card--card .card__inner .card__media {
@@ -249,11 +249,13 @@
   .card .media.media--hover-effect > img:only-child,
   .card-wrapper .media.media--hover-effect > img:only-child {
     transition: transform var(--duration-long) ease;
+    transform: scale(1.10);
   }
 
   .card:hover .media.media--hover-effect > img:first-child:only-child,
   .card-wrapper:hover .media.media--hover-effect > img:first-child:only-child {
-    transform: scale(1.03);
+    transform: scale(1);
+    filter: blur(2px) brightness(0.5);
   }
 
   .card-wrapper:hover
@@ -265,7 +267,7 @@
   .card-wrapper:hover .media.media--hover-effect > img + img {
     opacity: 1;
     transition: transform var(--duration-long) ease;
-    transform: scale(1.03);
+    transform: scale(1);
   }
 
   .underline-links-hover:hover a {
@@ -361,4 +363,44 @@
 
 .card-article-info {
   margin-top: 1rem;
+}
+
+/* Overlay title on hover */
+.card__overlay-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.card__overlay-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 4rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 1rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity var(--duration-long) ease;
+}
+
+.card:hover .card__overlay-link,
+.card-wrapper:hover .card__overlay-link {
+  opacity: 1;
 }

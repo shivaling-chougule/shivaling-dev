@@ -59,6 +59,11 @@
         "show_text_below": true
       }
     },
+    "page_breadcrumbs_TMzrth": {
+      "type": "page-breadcrumbs",
+      "name": "Page Breadcrumbs",
+      "settings": {}
+    },
     "paralax_image_banner_4cyeVr": {
       "type": "paralax-image-banner",
       "blocks": {
@@ -226,6 +231,7 @@
   },
   "order": [
     "6a3bb789-ce10-45f5-ae67-e2063ef8c76b",
+    "page_breadcrumbs_TMzrth",
     "paralax_image_banner_4cyeVr",
     "17794420669506c7b7",
     "collection_list_j36M9t",

@@ -9,6 +9,10 @@
  */
 {
   "sections": {
+    "breadcrumbs": {
+      "type": "page-breadcrumbs",
+      "settings": {}
+    },
     "main": {
       "type": "main-article",
       "blocks": {
@@ -39,6 +43,7 @@
     }
   },
   "order": [
+    "breadcrumbs",
     "main"
   ]
 }

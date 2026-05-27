@@ -9,6 +9,11 @@
  */
 {
   "sections": {
+    "page_breadcrumbs_qm4P3R": {
+      "type": "page-breadcrumbs",
+      "name": "Page Breadcrumbs",
+      "settings": {}
+    },
     "main": {
       "type": "main-list-collections",
       "disabled": true,
@@ -23,28 +28,35 @@
     "07c5541b-f8e9-4e48-9d3c-06973d977a3a": {
       "type": "collection-list",
       "blocks": {
-        "template--18521947767080__07c5541b-f8e9-4e48-9d3c-06973d977a3a-1681309838ff78aa4b-0": {
+        "featured_collection_VX3D9p": {
           "type": "featured_collection",
           "settings": {
-            "collection": "hydrogen"
+            "collection": "trendy-fashion-essentials"
           }
         },
-        "template--18521947767080__07c5541b-f8e9-4e48-9d3c-06973d977a3a-1681309838ff78aa4b-1": {
+        "featured_collection_6htXzP": {
           "type": "featured_collection",
           "settings": {
-            "collection": "automated-collection"
+            "collection": "everyday-accessories"
+          }
+        },
+        "featured_collection_DetUda": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "electronics"
           }
         }
       },
       "block_order": [
-        "template--18521947767080__07c5541b-f8e9-4e48-9d3c-06973d977a3a-1681309838ff78aa4b-0",
-        "template--18521947767080__07c5541b-f8e9-4e48-9d3c-06973d977a3a-1681309838ff78aa4b-1"
+        "featured_collection_VX3D9p",
+        "featured_collection_6htXzP",
+        "featured_collection_DetUda"
       ],
       "settings": {
         "title": "Collections",
-        "heading_size": "h1",
+        "heading_size": "h2",
         "image_ratio": "square",
-        "columns_desktop": 2,
+        "columns_desktop": 3,
         "color_scheme": "background-1",
         "show_view_all": false,
         "columns_mobile": "1",
@@ -55,6 +67,7 @@
     }
   },
   "order": [
+    "page_breadcrumbs_qm4P3R",
     "main",
     "07c5541b-f8e9-4e48-9d3c-06973d977a3a"
   ]

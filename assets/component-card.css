@@ -255,7 +255,7 @@
   .card:hover .media.media--hover-effect > img:first-child:only-child,
   .card-wrapper:hover .media.media--hover-effect > img:first-child:only-child {
     transform: scale(1);
-    filter: blur(2px) brightness(0.5);
+    filter: blur(8px) brightness(0.5);
   }
 
   .card-wrapper:hover

@@ -9,6 +9,10 @@
  */
 {
   "sections": {
+    "breadcrumbs": {
+      "type": "page-breadcrumbs",
+      "settings": {}
+    },
     "banner": {
       "type": "main-collection-banner",
       "settings": {
@@ -37,6 +41,7 @@
     }
   },
   "order": [
+    "breadcrumbs",
     "banner",
     "product-grid"
   ]

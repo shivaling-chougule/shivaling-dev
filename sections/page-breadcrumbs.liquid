@@ -1,0 +1,162 @@
+<div class="section page-width-normal" style="padding: 16px 5rem; padding-bottom: 16px;">
+  {% render 'section-breadcrumbs', wrapper_class: 'container', color: '#808080' %}
+</div>
+
+<script>
+  (function () {
+    var STORAGE_KEY = 'breadcrumb_trail';
+    var nav = document.querySelector('[data-breadcrumb-nav]');
+    if (!nav) return;
+
+    var template = nav.dataset.template;
+    var color = nav.dataset.breadcrumbColor || 'inherit';
+    var trailEl = nav.querySelector('[data-breadcrumb-trail]');
+    var fallbackEl = nav.querySelector('[data-breadcrumb-fallback]');
+
+    var TRACKED_TEMPLATES = ['list-collections', 'collection', 'product'];
+    var isTracked = TRACKED_TEMPLATES.indexOf(template) !== -1;
+
+    /* --- helpers --- */
+    function getTrail() {
+      try {
+        return JSON.parse(sessionStorage.getItem(STORAGE_KEY)) || [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function setTrail(trail) {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(trail));
+    }
+
+    function makeDelimiter() {
+      return '<span class="breadcrumb__delimiter" style="color: ' + color + ' !important; margin: 0 2px;">/</span>';
+    }
+
+    function makeLink(title, url) {
+      return makeDelimiter() +
+        '<a href="' + url + '" class="breadcrumb__link" style="color: ' + color + ';">' +
+          title +
+        '</a>';
+    }
+
+    function makeCurrent(title) {
+      return makeDelimiter() +
+        '<span class="breadcrumb__current" style="color: #000;">' +
+          title +
+        '</span>';
+    }
+
+    function renderTrail(trail, currentTitle) {
+      var html = '';
+
+      trail.forEach(function (crumb) {
+        html += makeLink(crumb.title, crumb.url);
+      });
+
+      if (currentTitle) {
+        html += makeCurrent(currentTitle);
+      }
+
+      trailEl.innerHTML = html;
+
+      if (fallbackEl) {
+        fallbackEl.style.display = 'none';
+      }
+    }
+
+    /* --- clear trail on non-tracked pages --- */
+    if (!isTracked) {
+      sessionStorage.removeItem(STORAGE_KEY);
+      return;
+    }
+
+    /* --- list-collections / collection --- */
+    if (template === 'list-collections' || template === 'collection') {
+      var collectionTitle = nav.dataset.collectionTitle;
+      var collectionUrl = nav.dataset.collectionUrl;
+
+      if (!collectionTitle || !collectionUrl) return;
+
+      var trail = getTrail();
+      var referrer = document.referrer;
+      var referrerPath = '';
+      try {
+        referrerPath = new URL(referrer).pathname;
+      } catch (e) {
+        referrerPath = '';
+      }
+
+      /*
+       * 1. If current collection already in trail → trim to before it (user revisited)
+       * 2. If referrer is a collection in the trail → trim everything after referrer,
+       *    then append current (user picked a different child from the same parent)
+       * 3. If referrer is not in trail → fresh start with just current collection
+       */
+      var currentIndex = trail.findIndex(function (c) { return c.url === collectionUrl; });
+
+      if (currentIndex !== -1) {
+        /* revisiting same collection — trim to before it */
+        trail = trail.slice(0, currentIndex);
+      } else {
+        /* find referrer in trail */
+        var referrerIndex = trail.findIndex(function (c) {
+          return referrerPath === c.url || referrerPath === c.url + '/';
+        });
+
+        if (referrerIndex !== -1) {
+          /* user came from a collection in the trail — trim everything after it */
+          trail = trail.slice(0, referrerIndex + 1);
+        } else if (trail.length > 0 && referrerPath === '') {
+          /* no referrer (direct nav) — keep trail as-is */
+        } else if (trail.length > 0) {
+          /* referrer is not a tracked collection — reset trail */
+          trail = [];
+        }
+      }
+
+      /* append current collection */
+      var newTrail = [].concat(trail, [{ title: collectionTitle, url: collectionUrl }]);
+      setTrail(newTrail);
+
+      /* render: parent trail as links + current collection as last link */
+      var html = '';
+      trail.forEach(function (crumb) {
+        html += makeLink(crumb.title, crumb.url);
+      });
+      html += makeDelimiter() +
+        '<a href="' + collectionUrl + '" class="breadcrumb__link" style="color: ' + color + ';">' +
+          collectionTitle +
+        '</a>';
+
+      trailEl.innerHTML = html;
+      if (fallbackEl) fallbackEl.style.display = 'none';
+    }
+
+    /* --- product --- */
+    if (template === 'product') {
+      var productTitle = nav.dataset.productTitle;
+      if (!productTitle) return;
+
+      var trail = getTrail();
+
+      if (trail.length > 0) {
+        renderTrail(trail, productTitle);
+      }
+      /* if no trail (user landed directly on product), fallback server-rendered breadcrumbs stay visible */
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Page Breadcrumbs",
+  "class": "section-page-breadcrumbs",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Page Breadcrumbs"
+    }
+  ]
+}
+{% endschema %}

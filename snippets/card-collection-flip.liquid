@@ -1,0 +1,78 @@
+{%- comment -%}
+  Renders a collection card with flip animation.
+  Accepts:
+  - card_collection: {Object} Collection Liquid object
+  - columns: {Number}
+
+  Usage:
+  {% render 'card-collection-flip', card_collection: block.settings.collection, columns: columns %}
+{%- endcomment -%}
+
+{%- liquid
+  assign collection_title = card_collection.title | default: 'Collection'
+  assign collection_url = card_collection.url
+  assign product_count = card_collection.products_count | default: 0
+-%}
+
+<a href="{{ collection_url }}" class="flip-card-link" aria-label="{{ collection_title | escape }}">
+  <div class="flip-card">
+    <div class="flip-card__content">
+
+      {%- comment -%} BACK — visible by default, hidden on hover {%- endcomment -%}
+      <div class="flip-card__back">
+        <div class="flip-card__back-border"></div>
+        <div class="flip-card__back-inner">
+          {%- if card_collection.featured_image -%}
+            <img
+              srcset="
+                {%- if card_collection.featured_image.width >= 330 -%}{{ card_collection.featured_image | image_url: width: 330 }} 330w,{%- endif -%}
+                {%- if card_collection.featured_image.width >= 535 -%}{{ card_collection.featured_image | image_url: width: 535 }} 535w,{%- endif -%}
+                {%- if card_collection.featured_image.width >= 750 -%}{{ card_collection.featured_image | image_url: width: 750 }} 750w,{%- endif -%}
+                {{ card_collection.featured_image | image_url }} {{ card_collection.featured_image.width }}w
+              "
+              src="{{ card_collection.featured_image | image_url: width: 535 }}"
+              alt="{{ collection_title | escape }}"
+              loading="lazy"
+              class="flip-card__back-image"
+              width="{{ card_collection.featured_image.width }}"
+              height="{{ card_collection.featured_image.height }}"
+            >
+          {%- else -%}
+            <div class="flip-card__back-placeholder">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+            </div>
+          {%- endif -%}
+          <strong class="flip-card__back-title">{{ collection_title | escape }}</strong>
+        </div>
+      </div>
+
+      {%- comment -%} FRONT — revealed on hover (rotated 180deg by default) {%- endcomment -%}
+      <div class="flip-card__front">
+        <div class="flip-card__front-bg">
+          <div class="flip-card__circle flip-card__circle--1"></div>
+          <div class="flip-card__circle flip-card__circle--2"></div>
+          <div class="flip-card__circle flip-card__circle--3"></div>
+        </div>
+        <div class="flip-card__front-content">
+          {%- if product_count > 0 -%}
+            <small class="flip-card__badge">{{ product_count }} {{ product_count | pluralize: 'Product', 'Products' }}</small>
+          {%- endif -%}
+          <div class="flip-card__description">
+            <div class="flip-card__title-row">
+              <p><strong>{{ collection_title | escape }}</strong></p>
+              <span class="flip-card__arrow">{% render 'icon-arrow' %}</span>
+            </div>
+            {%- if card_collection.description != blank -%}
+              <p class="flip-card__caption">{{ card_collection.description | strip_html | truncatewords: 12 }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</a>

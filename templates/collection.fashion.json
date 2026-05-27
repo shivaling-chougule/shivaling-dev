@@ -9,6 +9,11 @@
  */
 {
   "sections": {
+    "page_breadcrumbs_N7Xemj": {
+      "type": "page-breadcrumbs",
+      "name": "Page Breadcrumbs",
+      "settings": {}
+    },
     "banner": {
       "type": "main-collection-banner",
       "settings": {
@@ -17,8 +22,64 @@
         "color_scheme": "background-1"
       }
     },
+    "collection_list_NhKpND": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_kUMEfz": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "beauty-essentials"
+          }
+        },
+        "featured_collection_YwBtp8": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "modern-apparel-collection"
+          }
+        },
+        "featured_collection_JbcgRM": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "smart-wearables"
+          }
+        },
+        "featured_collection_nABqmb": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "bags"
+          }
+        },
+        "featured_collection_ArVq7P": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "footwear-essentials"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_kUMEfz",
+        "featured_collection_YwBtp8",
+        "featured_collection_JbcgRM",
+        "featured_collection_nABqmb",
+        "featured_collection_ArVq7P"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "Collections",
+        "heading_size": "h2",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "background-1",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "product-grid": {
       "type": "main-collection-product-grid",
+      "disabled": true,
       "settings": {
         "products_per_page": 16,
         "columns_desktop": 3,
@@ -37,7 +98,9 @@
     }
   },
   "order": [
+    "page_breadcrumbs_N7Xemj",
     "banner",
+    "collection_list_NhKpND",
     "product-grid"
   ]
 }

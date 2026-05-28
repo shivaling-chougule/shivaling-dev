@@ -88,7 +88,7 @@
           "type": "buttons",
           "settings": {
             "button_label_1": "Build Your Setup",
-            "button_link_1": "",
+            "button_link_1": "shopify://collections/all",
             "button_style_1": "button--tertiary"
           }
         }

@@ -102,7 +102,7 @@
       "settings": {
         "image": "shopify://shop_images/generate-a-image-for-hero-banner-for-light-mode-which-should-contain-graphical-designs-of-products-which-commonly-sold-on-e-commerce-websites.png",
         "parallax_speed": 50,
-        "image_overlay_opacity": 0,
+        "image_overlay_opacity": 20,
         "image_height": "medium",
         "desktop_content_position": "middle-left",
         "show_text_box": true,

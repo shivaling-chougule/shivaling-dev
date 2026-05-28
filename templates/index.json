@@ -112,6 +112,46 @@
         "show_text_below": false
       }
     },
+    "collage_aGEURV": {
+      "type": "collage",
+      "blocks": {
+        "image_9YU8Ua": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1-1-collection-image-for-beauty-essentials.png"
+          }
+        },
+        "product_3Vntd6": {
+          "type": "product",
+          "settings": {
+            "product": "garden-tool-kit",
+            "second_image": false
+          }
+        },
+        "collection_iWPHFE": {
+          "type": "collection",
+          "settings": {
+            "collection": "modern-apparel-collection"
+          }
+        }
+      },
+      "block_order": [
+        "image_9YU8Ua",
+        "product_3Vntd6",
+        "collection_iWPHFE"
+      ],
+      "name": "t:sections.collage.presets.name",
+      "settings": {
+        "heading": "Multimedia collage",
+        "heading_size": "h1",
+        "desktop_layout": "left",
+        "mobile_layout": "column",
+        "card_styles": "product-card-wrapper",
+        "color_scheme": "background-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "f1552b18-6017-4231-810d-74e61da22c37": {
       "type": "image-with-text",
       "blocks": {
@@ -156,53 +196,13 @@
         "padding_top": 60,
         "padding_bottom": 60
       }
-    },
-    "collage_aGEURV": {
-      "type": "collage",
-      "blocks": {
-        "image_9YU8Ua": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/1-1-collection-image-for-beauty-essentials.png"
-          }
-        },
-        "product_3Vntd6": {
-          "type": "product",
-          "settings": {
-            "product": "garden-tool-kit",
-            "second_image": false
-          }
-        },
-        "collection_iWPHFE": {
-          "type": "collection",
-          "settings": {
-            "collection": "modern-apparel-collection"
-          }
-        }
-      },
-      "block_order": [
-        "image_9YU8Ua",
-        "product_3Vntd6",
-        "collection_iWPHFE"
-      ],
-      "name": "t:sections.collage.presets.name",
-      "settings": {
-        "heading": "Multimedia collage",
-        "heading_size": "h1",
-        "desktop_layout": "left",
-        "mobile_layout": "column",
-        "card_styles": "product-card-wrapper",
-        "color_scheme": "background-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
     }
   },
   "order": [
     "6a3bb789-ce10-45f5-ae67-e2063ef8c76b",
     "page_breadcrumbs_TMzrth",
     "paralax_image_banner_4cyeVr",
-    "f1552b18-6017-4231-810d-74e61da22c37",
-    "collage_aGEURV"
+    "collage_aGEURV",
+    "f1552b18-6017-4231-810d-74e61da22c37"
   ]
 }

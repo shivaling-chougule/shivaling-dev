@@ -741,6 +741,26 @@
   </header>
 </{% if section.settings.sticky_header_type != 'none' %}sticky-header{% else %}div{% endif %}>
 
+<!-- DEBUG: Print all menu links -->
+{% comment %} <div style="padding: 20px; background: #f0f0f0; font-family: monospace; font-size: 14px;">
+  <h3 style="margin: 0 0 10px;">Menu Links Debug</h3>
+  {%- for link in section.settings.menu.links -%}
+    <div style="margin-bottom: 8px;">
+      <strong>{{ link.title | escape }}</strong> — {{ link.url }}
+      {%- for childlink in link.links -%}
+        <div style="margin-left: 20px;">
+          ↳ {{ childlink.title | escape }} — {{ childlink.url }}
+          {%- for grandchildlink in childlink.links -%}
+            <div style="margin-left: 20px;">
+              ↳ {{ grandchildlink.title | escape }} — {{ grandchildlink.url }}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endfor -%}
+</div> {% endcomment %}
+
 {%- if settings.cart_type == "notification" -%}
   {%- render 'cart-notification', color_scheme: section.settings.color_scheme, desktop_menu_type: section.settings.menu_type_desktop -%}
 {%- endif -%}

@@ -61,6 +61,7 @@
     },
     "page_breadcrumbs_TMzrth": {
       "type": "page-breadcrumbs",
+      "disabled": true,
       "name": "Page Breadcrumbs",
       "settings": {}
     },
@@ -70,9 +71,9 @@
         "heading_8NqgGM": {
           "type": "heading",
           "settings": {
-            "typewriter_word_1": "Ride",
-            "typewriter_word_2": "Own",
-            "heading": "the Mountain",
+            "typewriter_word_1": "Seek",
+            "typewriter_word_2": "Earn",
+            "heading": "the Glory.",
             "heading_size": "h1"
           }
         },
@@ -99,7 +100,7 @@
       ],
       "name": "Parallax Image Banner",
       "settings": {
-        "image": "shopify://shop_images/theme_cover_image.jpg",
+        "image": "shopify://shop_images/generate-a-image-for-hero-banner-for-light-mode-which-should-contain-graphical-designs-of-products-which-commonly-sold-on-e-commerce-websites.png",
         "parallax_speed": 50,
         "image_overlay_opacity": 0,
         "image_height": "medium",
@@ -109,78 +110,6 @@
         "color_scheme": "background-1",
         "mobile_content_alignment": "center",
         "show_text_below": false
-      }
-    },
-    "17794420669506c7b7": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "collection_list_j36M9t": {
-      "type": "collection-list",
-      "blocks": {
-        "featured_collection_YdtVrA": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "automated-collection"
-          }
-        },
-        "featured_collection_TJfMxw": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "frontpage"
-          }
-        },
-        "featured_collection_fTKbBP": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "hydrogen"
-          }
-        }
-      },
-      "block_order": [
-        "featured_collection_YdtVrA",
-        "featured_collection_TJfMxw",
-        "featured_collection_fTKbBP"
-      ],
-      "name": "t:sections.collection-list.presets.name",
-      "settings": {
-        "title": "Collections",
-        "heading_size": "h1",
-        "image_ratio": "portrait",
-        "columns_desktop": 3,
-        "color_scheme": "background-1",
-        "show_view_all": false,
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "<strong>Featured products</strong>",
-        "heading_size": "h1",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "automated-collection",
-        "products_to_show": 10,
-        "columns_desktop": 3,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "enable_desktop_slider": true,
-        "color_scheme": "background-1",
-        "image_ratio": "portrait",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "enable_quick_add": false,
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
       }
     },
     "f1552b18-6017-4231-810d-74e61da22c37": {
@@ -233,9 +162,6 @@
     "6a3bb789-ce10-45f5-ae67-e2063ef8c76b",
     "page_breadcrumbs_TMzrth",
     "paralax_image_banner_4cyeVr",
-    "17794420669506c7b7",
-    "collection_list_j36M9t",
-    "featured_collection",
     "f1552b18-6017-4231-810d-74e61da22c37"
   ]
 }

@@ -10,19 +10,28 @@
     position: relative;
   }
 
-  #Banner-{{ section.id }} .banner__media {
-    position: absolute;
-    inset: 0;
-    top: 0;
-    will-change: transform;
-  }
+#Banner-{{ section.id }} .banner__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  will-change: transform;
+}
 
-  #Banner-{{ section.id }} .banner__media img {
-    width: 100%;
-    height: 140%;
-    object-fit: cover !important;
-    display: block;
-  }
+#Banner-{{ section.id }} .banner__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+#Banner-{{ section.id }} .banner__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important;
+  object-position: center;
+  display: block;
+  transform: scale(1.12);
+  will-change: transform;
+}
 
   #Banner-{{ section.id }}.banner--small:not(.banner--adapt) {
     min-height: calc(42rem - 20px);
@@ -153,7 +162,7 @@
     if (!banner) return;
 
     var speed = parseFloat(banner.dataset.parallaxSpeed) || 0.5;
-    var media = banner.querySelector('.banner__media');
+    var media = banner.querySelector('.banner__media img');
     if (!media) return;
 
     var ticking = false;
@@ -168,9 +177,8 @@
       }
 
       var scrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
-      var offset = (scrollProgress - 0.5) * speed * 150;
-      media.style.transform = 'translateY(' + offset + 'px)';
-      ticking = false;
+      var offset = ((scrollProgress - 0.5) * speed * 80) - 20;
+      media.style.transform = 'scale(1.12) translateY(' + offset + 'px)';      ticking = false;
     }
 
     function onScroll() {

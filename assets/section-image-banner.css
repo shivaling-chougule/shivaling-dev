@@ -234,7 +234,7 @@
 }
 
 .banner__content {
-  padding: 0;
+  padding: 2rem;
   display: flex;
   position: relative;
   width: 100%;

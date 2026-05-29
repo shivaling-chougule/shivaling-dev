@@ -21,6 +21,10 @@
       {%- if template.name == 'collection' and collection %}
         data-collection-title="{{ collection.title | escape }}"
         data-collection-url="{{ collection.url }}"
+        {%- if collection.metafields.custom.parent_collection.value %}
+          data-parent-collection-title="{{ collection.metafields.custom.parent_collection.value.title | escape }}"
+          data-parent-collection-url="{{ collection.metafields.custom.parent_collection.value.url }}"
+        {%- endif %}
       {%- endif %}
       {%- if template.name == 'list-collections' %}
         data-collection-title="{{ page_title | escape }}"

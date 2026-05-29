@@ -75,6 +75,8 @@
     if (template === 'list-collections' || template === 'collection') {
       var collectionTitle = nav.dataset.collectionTitle;
       var collectionUrl = nav.dataset.collectionUrl;
+      var parentCollectionTitle = nav.dataset.parentCollectionTitle;
+      var parentCollectionUrl = nav.dataset.parentCollectionUrl;
 
       if (!collectionTitle || !collectionUrl) return;
 
@@ -112,6 +114,14 @@
         } else if (trail.length > 0) {
           /* referrer is not a tracked collection — reset trail */
           trail = [];
+        }
+      }
+
+      /* After trail is resolved, ensure parent collection from metafield is present */
+      if (parentCollectionTitle && parentCollectionUrl) {
+        var parentAlreadyInTrail = trail.some(function (c) { return c.url === parentCollectionUrl; });
+        if (!parentAlreadyInTrail) {
+          trail.unshift({ title: parentCollectionTitle, url: parentCollectionUrl, method: 'redirect' });
         }
       }
 

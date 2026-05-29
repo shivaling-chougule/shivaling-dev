@@ -284,6 +284,46 @@
         "padding_top": 0,
         "padding_bottom": 12
       }
+    },
+    "collection_list_kYdJbf": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_y7kirG": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "trendy-fashion-essentials"
+          }
+        },
+        "featured_collection_da4JMq": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "electronics"
+          }
+        },
+        "featured_collection_jXrihf": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "everyday-accessories"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_y7kirG",
+        "featured_collection_da4JMq",
+        "featured_collection_jXrihf"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "Collections",
+        "heading_size": "h2",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "background-1",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -293,6 +333,7 @@
     "collage_aGEURV",
     "f1552b18-6017-4231-810d-74e61da22c37",
     "multicolumn_HeQyUr",
-    "newsletter_fabaiP"
+    "newsletter_fabaiP",
+    "collection_list_kYdJbf"
   ]
 }

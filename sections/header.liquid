@@ -186,7 +186,7 @@
                                   {%- for childlink in link.links -%}
                                     <li>
                                       {%- if childlink.links == blank -%}
-                                        <a href="{{ childlink.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}>
+                                        <a href="{{ childlink.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}" data-breadcrumb-title="{{ childlink.title | escape }}" data-breadcrumb-url="{{ childlink.url }}"{% if childlink.current %} aria-current="page"{% endif %}>
                                           {{ childlink.title | escape }}
                                         </a>
                                       {%- else -%}
@@ -204,7 +204,7 @@
                                             <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
                                               {%- for grandchildlink in childlink.links -%}
                                                 <li>
-                                                  <a href="{{ grandchildlink.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
+                                                  <a href="{{ grandchildlink.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}" data-breadcrumb-title="{{ grandchildlink.title | escape }}" data-breadcrumb-url="{{ grandchildlink.url }}" data-breadcrumb-parent="{{ childlink.title | escape }}" data-breadcrumb-parent-url="{{ childlink.url }}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
                                                     {{ grandchildlink.title | escape }}
                                                   </a>
                                                 </li>
@@ -479,7 +479,7 @@
                         {%- for childlink in link.links -%}
                           <li>
                             {%- if childlink.links == blank -%}
-                              <a href="{{ childlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if childlink.current %} list-menu__item--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}>
+                              <a href="{{ childlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if childlink.current %} list-menu__item--active{% endif %}" data-breadcrumb-title="{{ childlink.title | escape }}" data-breadcrumb-url="{{ childlink.url }}"{% if childlink.current %} aria-current="page"{% endif %}>
                                 {{ childlink.title | escape }}
                               </a>
                             {%- else -%}
@@ -491,7 +491,7 @@
                                 <ul id="HeaderMenu-SubMenuList-{{ forloop.index }}" class="header__submenu list-menu motion-reduce">
                                   {%- for grandchildlink in childlink.links -%}
                                     <li>
-                                      <a href="{{ grandchildlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if grandchildlink.current %} list-menu__item--active{% endif %}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
+                                      <a href="{{ grandchildlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if grandchildlink.current %} list-menu__item--active{% endif %}" data-breadcrumb-title="{{ grandchildlink.title | escape }}" data-breadcrumb-url="{{ grandchildlink.url }}" data-breadcrumb-parent="{{ childlink.title | escape }}" data-breadcrumb-parent-url="{{ childlink.url }}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
                                         {{ grandchildlink.title | escape }}
                                       </a>
                                     </li>
@@ -529,14 +529,14 @@
                         <ul class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}" role="list">
                           {%- for childlink in link.links -%}
                             <li>
-                              <a href="{{ childlink.url }}" class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}>
+                              <a href="{{ childlink.url }}" class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}" data-breadcrumb-title="{{ childlink.title | escape }}" data-breadcrumb-url="{{ childlink.url }}"{% if childlink.current %} aria-current="page"{% endif %}>
                                 {{ childlink.title | escape }}
                               </a>
                               {%- if childlink.links != blank -%}
                                 <ul class="list-unstyled" role="list">
                                   {%- for grandchildlink in childlink.links -%}
                                     <li>
-                                      <a href="{{ grandchildlink.url }}" class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
+                                      <a href="{{ grandchildlink.url }}" class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}" data-breadcrumb-title="{{ grandchildlink.title | escape }}" data-breadcrumb-url="{{ grandchildlink.url }}" data-breadcrumb-parent="{{ childlink.title | escape }}" data-breadcrumb-parent-url="{{ childlink.url }}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
                                         {{ grandchildlink.title | escape }}
                                       </a>
                                     </li>
@@ -919,6 +919,36 @@
     }
   </script>
 {%- endif -%}
+
+<script>
+  (function () {
+    var STORAGE_KEY = 'breadcrumb_trail';
+    var links = document.querySelectorAll('a[data-breadcrumb-title]');
+
+    links.forEach(function (link) {
+      link.addEventListener('click', function () {
+        sessionStorage.removeItem(STORAGE_KEY);
+
+        var trail = [];
+        var parentTitle = this.getAttribute('data-breadcrumb-parent');
+        var parentUrl = this.getAttribute('data-breadcrumb-parent-url');
+
+        if (parentTitle && parentUrl) {
+          trail.push({ title: parentTitle, url: parentUrl, method: 'menu' });
+        }
+
+        var title = this.getAttribute('data-breadcrumb-title');
+        var url = this.getAttribute('data-breadcrumb-url');
+        if (title && url) {
+          trail.push({ title: title, url: url, method: 'menu' });
+        }
+
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(trail));
+        console.log('breadcrumb_trail:', trail);
+      });
+    });
+  })();
+</script>
 
 {% schema %}
 {

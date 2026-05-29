@@ -75,6 +75,8 @@
     if (template === 'list-collections' || template === 'collection') {
       var collectionTitle = nav.dataset.collectionTitle;
       var collectionUrl = nav.dataset.collectionUrl;
+      var parentCollectionTitle = nav.dataset.parentCollectionTitle;
+      var parentCollectionUrl = nav.dataset.parentCollectionUrl;
 
       if (!collectionTitle || !collectionUrl) return;
 
@@ -115,8 +117,16 @@
         }
       }
 
+      /* After trail is resolved, ensure parent collection from metafield is present */
+      if (parentCollectionTitle && parentCollectionUrl) {
+        var parentAlreadyInTrail = trail.some(function (c) { return c.url === parentCollectionUrl; });
+        if (!parentAlreadyInTrail) {
+          trail.unshift({ title: parentCollectionTitle, url: parentCollectionUrl, method: 'redirect' });
+        }
+      }
+
       /* append current collection */
-      var newTrail = [].concat(trail, [{ title: collectionTitle, url: collectionUrl }]);
+      var newTrail = [].concat(trail, [{ title: collectionTitle, url: collectionUrl, method: 'redirect' }]);
       setTrail(newTrail);
 
       /* render: parent trail as links + current collection as last link */
@@ -145,6 +155,7 @@
       }
       /* if no trail (user landed directly on product), fallback server-rendered breadcrumbs stay visible */
     }
+    console.log('breadcrumb_trail:', trail);
   })();
 </script>
 

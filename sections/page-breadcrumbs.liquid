@@ -116,7 +116,7 @@
       }
 
       /* append current collection */
-      var newTrail = [].concat(trail, [{ title: collectionTitle, url: collectionUrl }]);
+      var newTrail = [].concat(trail, [{ title: collectionTitle, url: collectionUrl, method: 'redirect' }]);
       setTrail(newTrail);
 
       /* render: parent trail as links + current collection as last link */
@@ -145,6 +145,7 @@
       }
       /* if no trail (user landed directly on product), fallback server-rendered breadcrumbs stay visible */
     }
+    console.log('breadcrumb_trail:', trail);
   })();
 </script>
 

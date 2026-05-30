@@ -152,6 +152,74 @@
         "padding_bottom": 36
       }
     },
+    "featured_product_NwPc3g": {
+      "type": "featured-product",
+      "blocks": {
+        "text_YtBGa8": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title_hhCbhf": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_KHUb9i": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_3ktt7U": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button"
+          }
+        },
+        "quantity_selector_rYJj68": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_7LqhDW": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "share_6Fg4qi": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text_YtBGa8",
+        "title_hhCbhf",
+        "price_KHUb9i",
+        "variant_picker_3ktt7U",
+        "quantity_selector_rYJj68",
+        "buy_buttons_7LqhDW",
+        "share_6Fg4qi"
+      ],
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "product": "test-goodman-2-5-ton-14-seer-air-conditioning-system",
+        "color_scheme": "background-1",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "f1552b18-6017-4231-810d-74e61da22c37": {
       "type": "image-with-text",
       "blocks": {
@@ -331,6 +399,7 @@
     "page_breadcrumbs_TMzrth",
     "paralax_image_banner_4cyeVr",
     "collage_aGEURV",
+    "featured_product_NwPc3g",
     "f1552b18-6017-4231-810d-74e61da22c37",
     "multicolumn_HeQyUr",
     "newsletter_fabaiP",

@@ -5,6 +5,13 @@
 <script>
   (function () {
     var STORAGE_KEY = 'breadcrumb_trail';
+
+    /* Clear trail on home page */
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+      sessionStorage.removeItem(STORAGE_KEY);
+      return;
+    }
+
     var nav = document.querySelector('[data-breadcrumb-nav]');
     if (!nav) return;
 

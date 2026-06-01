@@ -63,6 +63,13 @@
       {%- elsif template.name == 'product' and product -%}
         <span data-breadcrumb-fallback>
           {%- if product.collections.size > 0 -%}
+            {%- assign _parent = product.collections[0].metafields.custom.parent_collection.value -%}
+            {%- if _parent -%}
+              <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
+              <a href="{{ _parent.url }}" class="breadcrumb__link" style="color: {{ breadcrumb_color }};">
+                {{ _parent.title | escape }}
+              </a>
+            {%- endif -%}
             <span class="breadcrumb__delimiter" style="color: {{ breadcrumb_color }} !important; margin: 0 2px;">/</span>
             <a href="{{ product.collections[0].url }}" class="breadcrumb__link" style="color: {{ breadcrumb_color }};">
               {{ product.collections[0].title | escape }}

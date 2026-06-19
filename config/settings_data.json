@@ -155,7 +155,7 @@
         "type": "shopify://apps/maxliving-client-gate/blocks/client_gate/019edf63-ef35-753f-82eb-6c242a13bf77",
         "disabled": false,
         "settings": {
-          "backend_url": "",
+          "backend_url": "http://127.0.0.1:8000",
           "heading": "Authorized Access Only",
           "body_text": "This store is reserved for approved customers. Enter your email to continue.",
           "button_label": "Verify",

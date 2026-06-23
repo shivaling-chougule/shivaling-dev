@@ -153,7 +153,7 @@
     "blocks": {
       "5554098692502846903": {
         "type": "shopify://apps/maxliving-client-gate/blocks/client_gate/019edf63-ef35-753f-82eb-6c242a13bf77",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "backend_url": "https://beamish-hyperpyrexial-mao.ngrok-free.dev",
           "heading": "Authorized Access Only",

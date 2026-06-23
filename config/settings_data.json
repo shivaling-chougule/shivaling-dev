@@ -153,7 +153,7 @@
     "blocks": {
       "5554098692502846903": {
         "type": "shopify://apps/maxliving-client-gate/blocks/client_gate/019edf63-ef35-753f-82eb-6c242a13bf77",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "backend_url": "https://beamish-hyperpyrexial-mao.ngrok-free.dev",
           "heading": "Authorized Access Only",
@@ -170,7 +170,6 @@
           "body_font_size": 16,
           "button_font_size": 16,
           "input_font_size": 16,
-          "overlay_color": "#474747",
           "card_bg": "#ffffff",
           "heading_color": "#111111",
           "button_bg": "#6b7e8f",

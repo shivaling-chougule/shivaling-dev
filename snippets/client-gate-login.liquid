@@ -1,0 +1,51 @@
+{% doc %}
+  Redirects in-storefront clicks on login links to the homepage.
+
+  This store uses New Customer Accounts, so /account/login is redirected to
+  Shopify's hosted login server-side before theme JS can run — a direct URL hit
+  cannot be intercepted by the theme. This delegated click guard catches clicks
+  on login links (header, menu drawer, cart drawer) and sends them to the
+  homepage instead. The listener uses event delegation so it also covers links
+  added to the DOM later. Links carrying a login_hint are allowed through so the
+  magic-link flow still works.
+
+  @example
+  {% render 'client-gate-login' %}
+{% enddoc %}
+<script>
+  (function () {
+    var loginUrls = [
+      {{ routes.account_login_url | json }},
+      {{ routes.storefront_login_url | json }}
+    ];
+
+    function loginPathname(url) {
+      if (!url) { return ''; }
+      try {
+        return new URL(url, window.location.origin).pathname.replace(/\/+$/, '');
+      } catch (err) {
+        return '';
+      }
+    }
+
+    var loginPaths = loginUrls.map(loginPathname).filter(Boolean);
+    if (loginPaths.indexOf('/account/login') === -1) {
+      loginPaths.push('/account/login');
+    }
+
+    function isLoginHref(href) {
+      var path = loginPathname(href);
+      return path !== '' && loginPaths.indexOf(path) !== -1;
+    }
+
+    document.addEventListener('click', function (event) {
+      var anchor = event.target.closest('a[href]');
+      if (!anchor) { return; }
+      if (anchor.search.indexOf('login_hint=') !== -1) { return; }
+      if (!isLoginHref(anchor.getAttribute('href'))) { return; }
+      event.preventDefault();
+      console.log('[client-gate] login link click — redirecting to /');
+      window.location.replace('/');
+    }, true);
+  })();
+</script>

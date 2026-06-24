@@ -65,7 +65,6 @@
         "color_scheme": "background-1",
         "show_view_all": false,
         "columns_mobile": "1",
-        "swipe_on_mobile": false,
         "padding_top": 36,
         "padding_bottom": 36
       }

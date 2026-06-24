@@ -6,6 +6,22 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
 
+    {%- comment -%}
+      client-gate: block direct visits to the login page unless the URL carries a
+      login_hint. The page is detected server-side via template.name, so the guard
+      script is only emitted on customers/login — no routes/pathname parsing needed.
+      Runs synchronously in <head> so the redirect fires before paint.
+    {%- endcomment -%}
+    {%- if template.name == 'customers/login' -%}
+      <script>
+        (function () {
+          if (window.location.search.indexOf('login_hint=') === -1) {
+            console.log('[client-gate] direct login visit — redirecting to /');
+            window.location.replace('/');
+          }
+        })();
+      </script>
+    {%- endif -%}
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
@@ -247,8 +263,6 @@
   </head>
 
   <body class="gradient">
-    {%- render 'client-gate-login' -%}
-
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>

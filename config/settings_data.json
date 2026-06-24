@@ -166,7 +166,7 @@
           "denied_heading": "Access Denied",
           "denied_body": "This store is reserved for approved customers only.",
           "support_phone": "",
-          "heading_font_size": 32,
+          "heading_font_size": 30,
           "body_font_size": 16,
           "button_font_size": 16,
           "input_font_size": 16,

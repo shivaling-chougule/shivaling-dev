@@ -7,75 +7,21 @@
     <meta name="theme-color" content="">
 
     {%- comment -%}
-      client-gate: force the email-hint login flow.
-
-      New customer accounts hosts the login page on a separate Shopify origin, so a
-      theme script can never run there. Instead we guard the *doors* on our own
-      storefront: intercept clicks on links that point at the login URL and block
-      navigation unless the link carries a login_hint (i.e. it came from the email
-      form). Direct entry of the external hosted login URL is not theme-controllable.
-
-      Uses capture-phase delegation on document, so it also catches links injected
-      after load. Login URLs are seeded from Liquid.
+      client-gate: block direct visits to the login page unless the URL carries a
+      login_hint. The page is detected server-side via template.name, so the guard
+      script is only emitted on customers/login — no routes/pathname parsing needed.
+      Runs synchronously in <head> so the redirect fires before paint.
     {%- endcomment -%}
-    <script>
-      (function () {
-        // Where to send users who try to reach login without an email hint.
-        var REDIRECT_TARGET = '/';
-
-        var loginUrls = [
-          {{ routes.account_login_url | json }},
-          {{ routes.storefront_login_url | json }}
-        ];
-
-        function normalize(url) {
-          if (!url) { return null; }
-          try {
-            var u = new URL(url, window.location.origin);
-            return u.origin + u.pathname.replace(/\/+$/, '');
-          } catch (err) {
-            return null;
+    {%- if template.name == 'customers/login' -%}
+      <script>
+        (function () {
+          if (window.location.search.indexOf('login_hint=') === -1) {
+            console.log('[client-gate] direct login visit — redirecting to /');
+            window.location.replace('/');
           }
-        }
-
-        var loginKeys = loginUrls.map(normalize).filter(Boolean);
-
-        function isLoginUrl(url) {
-          var key = normalize(url);
-          return key !== null && loginKeys.indexOf(key) !== -1;
-        }
-
-        function hasLoginHint(url) {
-          try {
-            return new URL(url, window.location.origin).searchParams.has('login_hint');
-          } catch (err) {
-            return false;
-          }
-        }
-
-        // Intercept clicks on login links that lack a login_hint.
-        document.addEventListener('click', function (event) {
-          var target = event.target;
-          var anchor = target && target.closest ? target.closest('a[href]') : null;
-          if (!anchor) { return; }
-
-          var href = anchor.getAttribute('href');
-          if (!isLoginUrl(href) || hasLoginHint(href)) { return; }
-
-          event.preventDefault();
-          console.log('[client-gate] login link without login_hint — redirecting to ' + REDIRECT_TARGET);
-          window.location.assign(REDIRECT_TARGET);
-        }, true);
-
-        // Belt-and-suspenders: if a same-origin login page renders before Shopify's
-        // server-side redirect, bounce it too. No effect on the external hosted page.
-        var here = normalize(window.location.href);
-        if (here !== null && loginKeys.indexOf(here) !== -1 && !hasLoginHint(window.location.href)) {
-          console.log('[client-gate] direct login visit — redirecting to ' + REDIRECT_TARGET);
-          window.location.replace(REDIRECT_TARGET);
-        }
-      })();
-    </script>
+        })();
+      </script>
+    {%- endif -%}
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 

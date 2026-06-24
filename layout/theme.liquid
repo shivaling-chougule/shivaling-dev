@@ -5,6 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
+
+    {%- comment -%}
+      client-gate: block direct visits to the login page unless the URL carries a
+      login_hint. Runs synchronously in <head> so the redirect fires before paint.
+      Login paths are seeded from Liquid so this does not depend on window.routes
+      (defined later) or on [data-cg-root] being parsed yet.
+    {%- endcomment -%}
+    <script>
+      (function () {
+        var routes = {
+          account_login_url: {{ routes.account_login_url | json }},
+          storefront_login_url: {{ routes.storefront_login_url | json }}
+        };
+
+        function loginPathname(url) {
+          if (!url) { return ''; }
+          try {
+            return new URL(url, window.location.origin).pathname.replace(/\/+$/, '');
+          } catch (err) {
+            return '';
+          }
+        }
+
+        function guardDirectLogin() {
+          var loginPaths = [
+            loginPathname(routes.account_login_url),
+            loginPathname(routes.storefront_login_url)
+          ].filter(Boolean);
+          if (loginPaths.length === 0) {
+            loginPaths = ['/account/login'];
+          }
+
+          var currentPath = window.location.pathname.replace(/\/+$/, '');
+          var isLoginPath = loginPaths.indexOf(currentPath) !== -1;
+          var hasLoginHint = window.location.search.indexOf('login_hint=') !== -1;
+          if (isLoginPath && !hasLoginHint) {
+            console.log('[client-gate] direct login visit — redirecting to /');
+            window.location.replace('/');
+            return true;
+          }
+          return false;
+        }
+
+        guardDirectLogin();
+      })();
+    </script>
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 

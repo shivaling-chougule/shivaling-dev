@@ -151,22 +151,22 @@
     },
     "content_for_index": [],
     "blocks": {
-      "5554098692502846903": {
-        "type": "shopify://apps/maxliving-client-gate/blocks/client_gate/019edf63-ef35-753f-82eb-6c242a13bf77",
+      "4279916800877442387": {
+        "type": "shopify://apps/maxliving-client-gate-beta/blocks/client_gate/019efee8-ae8d-798f-8e77-4361091b25b0",
         "disabled": false,
         "settings": {
-          "backend_url": "https://beamish-hyperpyrexial-mao.ngrok-free.dev",
+          "backend_url": "",
           "heading": "Authorized Access Only",
           "body_text": "This store is reserved for approved customers. Enter your email to continue.",
           "button_label": "Verify",
           "email_placeholder": "Enter email address",
           "success_heading": "Account Verified",
-          "success_body": "Redirecting you to the login page",
+          "success_body": "Your email has been verified. You will be redirected to log in shortly.",
           "redirect_seconds": 3,
           "denied_heading": "Access Denied",
           "denied_body": "We could not find an approved account with that email address.",
-          "support_phone": "321-939-3030",
-          "heading_font_size": 30,
+          "support_phone": "",
+          "heading_font_size": 32,
           "body_font_size": 16,
           "button_font_size": 16,
           "input_font_size": 16,

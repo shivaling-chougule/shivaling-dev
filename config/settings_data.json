@@ -178,7 +178,7 @@
       },
       "4279916800877442387": {
         "type": "shopify://apps/maxliving-gate-customer/blocks/client_gate/019efee8-ae8d-798f-8e77-4361091b25b0",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "backend_url": "https://client-gate-app-d78a10dde9ab.herokuapp.com",
           "heading": "Authorized Access Only",
@@ -199,6 +199,7 @@
           "heading_color": "#111111",
           "button_bg": "#6b7e8f",
           "button_text_color": "#ffffff",
+          "excluded_paths": "/pages/become-a-wholesaler",
           "hide_account_links": true
         }
       }

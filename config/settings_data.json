@@ -196,7 +196,7 @@
           "button_font_size": 16,
           "input_font_size": 16,
           "card_bg": "#ffffff",
-          "heading_color": "#111111",
+          "heading_color": "#333333",
           "button_bg": "#6b7e8f",
           "button_text_color": "#ffffff",
           "excluded_paths": "/pages/become-a-wholesaler",

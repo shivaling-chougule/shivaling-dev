@@ -175,6 +175,32 @@
           "button_text_color": "#ffffff",
           "hide_account_links": true
         }
+      },
+      "4279916800877442387": {
+        "type": "shopify://apps/maxliving-gate-customer/blocks/client_gate/019efee8-ae8d-798f-8e77-4361091b25b0",
+        "disabled": true,
+        "settings": {
+          "backend_url": "",
+          "heading": "Authorized Access Only",
+          "body_text": "This store is reserved for approved customers. Enter your email to continue.",
+          "button_label": "Verify",
+          "email_placeholder": "Enter email address",
+          "success_heading": "Account Verified",
+          "success_body": "Your email has been verified. You will be redirected to log in shortly.",
+          "denied_heading": "Access Denied",
+          "denied_body": "We could not find an approved account with that email address.",
+          "support_email": "newone@mai.com",
+          "support_phone": "89889888",
+          "heading_font_size": 32,
+          "body_font_size": 16,
+          "button_font_size": 16,
+          "input_font_size": 16,
+          "card_bg": "#ffffff",
+          "heading_color": "#111111",
+          "button_bg": "#6b7e8f",
+          "button_text_color": "#ffffff",
+          "hide_account_links": true
+        }
       }
     }
   },

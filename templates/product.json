@@ -53,6 +53,19 @@
           "type": "description",
           "settings": {}
         },
+        "shivaling_dev_app_app_block_Pr8wBb": {
+          "type": "shopify://apps/shivaling-dev-app/blocks/app-block/019f1dc4-40c6-77c5-96a7-c66128e4c29a",
+          "settings": {
+            "button_text": "Select Lens",
+            "button_background_color": "#FFAA2B",
+            "button_text_color": "#FFF",
+            "button_padding": 14,
+            "button_width": 100,
+            "button_corner_radius": 6,
+            "selection_color": "#FFAA2B",
+            "post_add_to_cart": ""
+          }
+        },
         "share": {
           "type": "share",
           "disabled": true,
@@ -69,6 +82,7 @@
         "price",
         "buy_buttons",
         "description",
+        "shivaling_dev_app_app_block_Pr8wBb",
         "share"
       ],
       "settings": {

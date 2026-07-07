@@ -59,32 +59,6 @@
           "settings": {
             "share_label": "Share"
           }
-        },
-        "shivaling_dev_app_app_block_jBayrG": {
-          "type": "shopify://apps/shivaling-dev-app/blocks/app-block/019f1dc4-40c6-77c5-96a7-c66128e4c29a",
-          "settings": {
-            "button_text": "Select Lens",
-            "button_background_color": "#FFAA2B",
-            "button_text_color": "#FFF",
-            "button_padding": 14,
-            "button_width": 100,
-            "button_corner_radius": 6,
-            "selection_color": "#FFAA2B",
-            "post_add_to_cart": ""
-          }
-        },
-        "shivaling_dev_app_app_block_tceGFT": {
-          "type": "shopify://apps/shivaling-dev-app/blocks/app-block/019f1dc4-40c6-77c5-96a7-c66128e4c29a",
-          "settings": {
-            "button_text": "Select Lens",
-            "button_background_color": "#FFAA2B",
-            "button_text_color": "#FFF",
-            "button_padding": 14,
-            "button_width": 100,
-            "button_corner_radius": 6,
-            "selection_color": "#FFAA2B",
-            "post_add_to_cart": ""
-          }
         }
       },
       "block_order": [
@@ -95,9 +69,7 @@
         "price",
         "buy_buttons",
         "description",
-        "share",
-        "shivaling_dev_app_app_block_jBayrG",
-        "shivaling_dev_app_app_block_tceGFT"
+        "share"
       ],
       "settings": {
         "enable_sticky_info": true,

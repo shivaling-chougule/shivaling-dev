@@ -40,7 +40,7 @@
     }
   });
 });
-(Object.getOwnPropertyDescriptor(__WEBPACK_DEFAULT_EXPORT__, "name") || {}).writable || Object.defineProperty(__WEBPACK_DEFAULT_EXPORT__, "name", { value: "default", configurable: true });
+__webpack_require__.dn(__WEBPACK_DEFAULT_EXPORT__);
 
 /***/ },
 
@@ -70,7 +70,6 @@
   //on sample-svelte.js , you can access the shopify data in variable shopifyData 
   //check svelte-wrapper.js for more info
 });
-(Object.getOwnPropertyDescriptor(__WEBPACK_DEFAULT_EXPORT__, "name") || {}).writable || Object.defineProperty(__WEBPACK_DEFAULT_EXPORT__, "name", { value: "default", configurable: true });
 
 /***/ },
 
@@ -256,6 +255,14 @@ class Sample extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__.SvelteComponen
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/set anonymous default export name */
+/******/ 	(() => {
+/******/ 		// set .name for anonymous default exports per ES spec
+/******/ 		__webpack_require__.dn = (x) => {
+/******/ 			(Object.getOwnPropertyDescriptor(x, "name") || {}).writable || Object.defineProperty(x, "name", { value: "default", configurable: true });
+/******/ 		};
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */

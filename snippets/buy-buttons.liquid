@@ -60,13 +60,6 @@
         {%- endif -%}
 
         <div class="product-form__buttons">
-         {% assign total_stock = 0 %}
-{% for variant in product.variants %}
-  {% if variant.inventory_quantity > 0 %}
-    {% assign total_stock = total_stock | plus: variant.inventory_quantity %}
-  {% endif %}
-{% endfor %}
-<p>Total units available: {{ total_stock }}</p>
           {%- liquid
             assign check_against_inventory = true
             if product.selected_or_first_available_variant.inventory_management != 'shopify' or  product.selected_or_first_available_variant.inventory_policy == 'continue'

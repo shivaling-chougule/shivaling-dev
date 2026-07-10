@@ -1,208 +1,234 @@
-/******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ({
+function getFocusableElements(container) {
+  return Array.from(
+    container.querySelectorAll(
+      "summary, a[href], button:enabled, [tabindex]:not([tabindex^='-']), [draggable], area, input:not([type=hidden]):enabled, select:enabled, textarea:enabled, object, iframe"
+    )
+  );
+}
 
-/***/ "./js/sections/global.js"
-/*!*******************************!*\
-  !*** ./js/sections/global.js ***!
-  \*******************************/
-(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
+document.querySelectorAll('[id^="Details-"] summary').forEach((summary) => {
+  summary.setAttribute('role', 'button');
+  summary.setAttribute('aria-expanded', summary.parentNode.hasAttribute('open'));
 
-/* harmony import */ var lazysizes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lazysizes */ "./node_modules/lazysizes/lazysizes.js");
-/* harmony import */ var lazysizes__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lazysizes__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var lazysizes_plugins_object_fit_ls_object_fit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lazysizes/plugins/object-fit/ls.object-fit */ "./node_modules/lazysizes/plugins/object-fit/ls.object-fit.js");
-/* harmony import */ var lazysizes_plugins_object_fit_ls_object_fit__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lazysizes_plugins_object_fit_ls_object_fit__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lazysizes_plugins_parent_fit_ls_parent_fit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lazysizes/plugins/parent-fit/ls.parent-fit */ "./node_modules/lazysizes/plugins/parent-fit/ls.parent-fit.js");
-/* harmony import */ var lazysizes_plugins_parent_fit_ls_parent_fit__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lazysizes_plugins_parent_fit_ls_parent_fit__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var lazysizes_plugins_rias_ls_rias__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lazysizes/plugins/rias/ls.rias */ "./node_modules/lazysizes/plugins/rias/ls.rias.js");
-/* harmony import */ var lazysizes_plugins_rias_ls_rias__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lazysizes_plugins_rias_ls_rias__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var lazysizes_plugins_bgset_ls_bgset__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lazysizes/plugins/bgset/ls.bgset */ "./node_modules/lazysizes/plugins/bgset/ls.bgset.js");
-/* harmony import */ var lazysizes_plugins_bgset_ls_bgset__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lazysizes_plugins_bgset_ls_bgset__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var lazysizes_plugins_respimg_ls_respimg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lazysizes/plugins/respimg/ls.respimg */ "./node_modules/lazysizes/plugins/respimg/ls.respimg.js");
-/* harmony import */ var lazysizes_plugins_respimg_ls_respimg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lazysizes_plugins_respimg_ls_respimg__WEBPACK_IMPORTED_MODULE_5__);
-//global imports here
+  if (summary.nextElementSibling.getAttribute('id')) {
+    summary.setAttribute('aria-controls', summary.nextElementSibling.id);
+  }
 
+  summary.addEventListener('click', (event) => {
+    event.currentTarget.setAttribute(
+      'aria-expanded',
+      !event.currentTarget.closest('details').hasAttribute('open')
+    );
+  });
 
+  if (summary.closest('header-drawer, menu-drawer')) return;
+  summary.parentElement.addEventListener('keyup', onKeyUpEscape);
+});
 
+const trapFocusHandlers = {};
 
+function trapFocus(container, elementToFocus = container) {
+  var elements = getFocusableElements(container);
+  var first = elements[0];
+  var last = elements[elements.length - 1];
 
+  removeTrapFocus();
 
-//lazyload image dependencies
-(lazysizes__WEBPACK_IMPORTED_MODULE_0___default().cfg).loadMode = 1; //init lazyload
+  trapFocusHandlers.focusin = (event) => {
+    if (
+      event.target !== container &&
+      event.target !== last &&
+      event.target !== first
+    )
+      return;
 
-document.addEventListener('DOMContentLoaded', () => {});
+    document.addEventListener('keydown', trapFocusHandlers.keydown);
+  };
 
-/***/ }
+  trapFocusHandlers.focusout = function () {
+    document.removeEventListener('keydown', trapFocusHandlers.keydown);
+  };
 
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		if (!(moduleId in __webpack_modules__)) {
-/******/ 			delete __webpack_module_cache__[moduleId];
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/chunk loaded */
-/******/ 	(() => {
-/******/ 		var deferred = [];
-/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
-/******/ 			if(chunkIds) {
-/******/ 				priority = priority || 0;
-/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
-/******/ 				deferred[i] = [chunkIds, fn, priority];
-/******/ 				return;
-/******/ 			}
-/******/ 			var notFulfilled = Infinity;
-/******/ 			for (var i = 0; i < deferred.length; i++) {
-/******/ 				var [chunkIds, fn, priority] = deferred[i];
-/******/ 				var fulfilled = true;
-/******/ 				for (var j = 0; j < chunkIds.length; j++) {
-/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
-/******/ 						chunkIds.splice(j--, 1);
-/******/ 					} else {
-/******/ 						fulfilled = false;
-/******/ 						if(priority < notFulfilled) notFulfilled = priority;
-/******/ 					}
-/******/ 				}
-/******/ 				if(fulfilled) {
-/******/ 					deferred.splice(i--, 1)
-/******/ 					var r = fn();
-/******/ 					if (r !== undefined) result = r;
-/******/ 				}
-/******/ 			}
-/******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/jsonp chunk loading */
-/******/ 	(() => {
-/******/ 		// no baseURI
-/******/ 		
-/******/ 		// object to store loaded and loading chunks
-/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-/******/ 		var installedChunks = {
-/******/ 			"global": 0
-/******/ 		};
-/******/ 		
-/******/ 		// no chunk on demand loading
-/******/ 		
-/******/ 		// no prefetching
-/******/ 		
-/******/ 		// no preloaded
-/******/ 		
-/******/ 		// no HMR
-/******/ 		
-/******/ 		// no HMR manifest
-/******/ 		
-/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
-/******/ 		
-/******/ 		// install a JSONP callback for chunk loading
-/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-/******/ 			var [chunkIds, moreModules, runtime] = data;
-/******/ 			// add "moreModules" to the modules object,
-/******/ 			// then flag all "chunkIds" as loaded and fire callback
-/******/ 			var moduleId, chunkId, i = 0;
-/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
-/******/ 				for(moduleId in moreModules) {
-/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
-/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
-/******/ 					}
-/******/ 				}
-/******/ 				if(runtime) var result = runtime(__webpack_require__);
-/******/ 			}
-/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
-/******/ 			for(;i < chunkIds.length; i++) {
-/******/ 				chunkId = chunkIds[i];
-/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 					installedChunks[chunkId][0]();
-/******/ 				}
-/******/ 				installedChunks[chunkId] = 0;
-/******/ 			}
-/******/ 			return __webpack_require__.O(result);
-/******/ 		}
-/******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkshoptrade_Shopify_Development"] = self["webpackChunkshoptrade_Shopify_Development"] || [];
-/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendors"], () => (__webpack_require__("./js/sections/global.js")))
-/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
-/******/ 	
-/******/ })()
-;
+  trapFocusHandlers.keydown = function (event) {
+    if (event.code.toUpperCase() !== 'TAB') return; // If not TAB key
+    // On the last focusable element and tab forward, focus the first element.
+    if (event.target === last && !event.shiftKey) {
+      event.preventDefault();
+      first.focus();
+    }
+
+    //  On the first focusable element and tab backward, focus the last element.
+    if (
+      (event.target === container || event.target === first) &&
+      event.shiftKey
+    ) {
+      event.preventDefault();
+      last.focus();
+    }
+  };
+
+  document.addEventListener('focusout', trapFocusHandlers.focusout);
+  document.addEventListener('focusin', trapFocusHandlers.focusin);
+
+  elementToFocus.focus();
+
+  if (
+    elementToFocus.tagName === 'INPUT' &&
+    ['search', 'text', 'email', 'url'].includes(elementToFocus.type) &&
+    elementToFocus.value
+  ) {
+    elementToFocus.setSelectionRange(0, elementToFocus.value.length);
+  }
+}
+
+// Here run the querySelector to figure out if the browser supports :focus-visible or not and run code based on it.
+try {
+  document.querySelector(':focus-visible');
+} catch (e) {
+  focusVisiblePolyfill();
+}
+
+function focusVisiblePolyfill() {
+  const navKeys = [
+    'ARROWUP',
+    'ARROWDOWN',
+    'ARROWLEFT',
+    'ARROWRIGHT',
+    'TAB',
+    'ENTER',
+    'SPACE',
+    'ESCAPE',
+    'HOME',
+    'END',
+    'PAGEUP',
+    'PAGEDOWN',
+  ];
+  let currentFocusedElement = null;
+  let mouseClick = null;
+
+  window.addEventListener('keydown', (event) => {
+    if (navKeys.includes(event.code.toUpperCase())) {
+      mouseClick = false;
+    }
+  });
+
+  window.addEventListener('mousedown', (event) => {
+    mouseClick = true;
+  });
+
+  window.addEventListener(
+    'focus',
+    () => {
+      if (currentFocusedElement)
+        currentFocusedElement.classList.remove('focused');
+
+      if (mouseClick) return;
+
+      currentFocusedElement = document.activeElement;
+      currentFocusedElement.classList.add('focused');
+    },
+    true
+  );
+}
+
+function pauseAllMedia() {
+  document.querySelectorAll('.js-youtube').forEach((video) => {
+    video.contentWindow.postMessage(
+      '{"event":"command","func":"' + 'pauseVideo' + '","args":""}',
+      '*'
+    );
+  });
+  document.querySelectorAll('.js-vimeo').forEach((video) => {
+    video.contentWindow.postMessage('{"method":"pause"}', '*');
+  });
+  document.querySelectorAll('video').forEach((video) => video.pause());
+  document.querySelectorAll('product-model').forEach((model) => {
+    if (model.modelViewerUI) model.modelViewerUI.pause();
+  });
+}
+
+function removeTrapFocus(elementToFocus = null) {
+  document.removeEventListener('focusin', trapFocusHandlers.focusin);
+  document.removeEventListener('focusout', trapFocusHandlers.focusout);
+  document.removeEventListener('keydown', trapFocusHandlers.keydown);
+
+  if (elementToFocus) elementToFocus.focus();
+}
+
+function onKeyUpEscape(event) {
+  if (event.code.toUpperCase() !== 'ESCAPE') return;
+
+  const openDetailsElement = event.target.closest('details[open]');
+  if (!openDetailsElement) return;
+
+  const summaryElement = openDetailsElement.querySelector('summary');
+  openDetailsElement.removeAttribute('open');
+  summaryElement.setAttribute('aria-expanded', false);
+  summaryElement.focus();
+}
+
+class ModalDialog extends HTMLElement {
+  constructor() {
+    super();
+    this.querySelector('[id^="ModalClose-"]').addEventListener(
+      'click',
+      this.hide.bind(this, false)
+    );
+    this.addEventListener('keyup', (event) => {
+      if (event.code.toUpperCase() === 'ESCAPE') this.hide();
+    });
+    if (this.classList.contains('media-modal')) {
+      this.addEventListener('pointerup', (event) => {
+        if (
+          event.pointerType === 'mouse' &&
+          !event.target.closest('deferred-media, product-model')
+        )
+          this.hide();
+      });
+    } else {
+      this.addEventListener('click', (event) => {
+        if (event.target === this) this.hide();
+      });
+    }
+  }
+
+  connectedCallback() {
+    if (this.moved) return;
+    this.moved = true;
+    document.body.appendChild(this);
+  }
+
+  show(opener) {
+    this.openedBy = opener;
+    const popup = this.querySelector('.template-popup');
+    document.body.classList.add('overflow-hidden');
+    this.setAttribute('open', '');
+    if (popup) popup.loadContent();
+    trapFocus(this, this.querySelector('[role="dialog"]'));
+    window.pauseAllMedia();
+  }
+
+  hide() {
+    document.body.classList.remove('overflow-hidden');
+    document.body.dispatchEvent(new CustomEvent('modalClosed'));
+    this.removeAttribute('open');
+    removeTrapFocus(this.openedBy);
+    window.pauseAllMedia();
+  }
+}
+customElements.define('modal-dialog', ModalDialog);
+
+class ModalOpener extends HTMLElement {
+  constructor() {
+    super();
+
+    const button = this.querySelector('button');
+
+    if (!button) return;
+    button.addEventListener('click', () => {
+      const modal = document.querySelector(this.getAttribute('data-modal'));
+      if (modal) modal.show(button);
+    });
+  }
+}
+customElements.define('modal-opener', ModalOpener);

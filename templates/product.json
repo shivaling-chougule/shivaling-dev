@@ -55,19 +55,6 @@
             "post_add_to_cart": ""
           }
         },
-        "shivaling_dev_app_app_block_TNt7eJ": {
-          "type": "shopify://apps/shivaling-dev-app/blocks/app-block/019f1dc4-40c6-77c5-96a7-c66128e4c29a",
-          "settings": {
-            "button_text": "Select Lens",
-            "button_background_color": "#ffaa2b",
-            "button_text_color": "#fff",
-            "button_padding": 14,
-            "button_width": 100,
-            "button_corner_radius": 6,
-            "selection_color": "#ffaa2b",
-            "post_add_to_cart": ""
-          }
-        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -94,7 +81,6 @@
         "quantity_selector",
         "price",
         "shivaling_dev_app_app_block_aQYF7X",
-        "shivaling_dev_app_app_block_TNt7eJ",
         "buy_buttons",
         "description",
         "share"
